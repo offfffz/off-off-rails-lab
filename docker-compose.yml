@@ -1,0 +1,18 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+      - ./lab:/usr/src/app
+    ports:
+      - "3000:3000"
+    command: "rails server -p 3000 -b 0.0.0.0"
+    environment:
+      - SECRET_KEY_BASE=8c3d63bd0eaf6c147c30166b3123387731bfeacd3c9cd2e9d491b743801f34f30063738d34e83114f03087ffa1ef313fc6e518a156d2871cf8836cb2a158133d
+      - RAILS_ENV=development
+    links:
+      - db:database
+    depends_on:
+      - db
+  db:
+    image: postgres
